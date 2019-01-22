@@ -1,18 +1,18 @@
 <template>
-    <div class="login">
+    <div class="login pt-5">
         <form v-if="loginForm" @submit.prevent="loginUser">
-            <input type="email" v-model="creds.email" placeholder="email">
-            <input type="password" v-model="creds.password" placeholder="password">
-            <button type="submit">Login</button>
+            <div><input type="email" v-model="creds.email" placeholder="email"></div>
+            <div><input type="password" v-model="creds.password" placeholder="password"></div>
+            <button class="btn btn-info" type="submit">Login</button>
         </form>
         <form v-else @submit.prevent="register">
             <input type="text" v-model="newUser.username" placeholder="name">
             <input type="email" v-model="newUser.email" placeholder="email">
             <input type="password" v-model="newUser.password" placeholder="password">
-            <button type="submit">Create Account</button>
+            <button type="submit" class="btn btn-info">Create Account</button>
         </form>
-        <div @click="loginForm = !loginForm">
-            <p v-if="loginForm">No account Click to Register</p>
+        <div class="hover" @click="loginForm = !loginForm">
+            <p v-if="loginForm">No account? Click to Register</p>
             <p v-else>Already have an account click to Login</p>
         </div>
     </div>
@@ -21,10 +21,6 @@
 <script>
     export default {
         name: "login",
-        mounted() {
-            //checks for valid session
-            this.$store.dispatch("authenticate");
-        },
         data() {
             return {
                 loginForm: true,
@@ -49,3 +45,12 @@
         }
     };
 </script>
+<style>
+    p {
+        color: whitesmoke;
+    }
+
+    .hover {
+        cursor: pointer;
+    }
+</style>

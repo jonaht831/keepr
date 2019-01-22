@@ -19,6 +19,11 @@ namespace keepr.Controllers
       return _db.Query<Keep>("SELECT * FROM Keeps");
     }
 
+    public IEnumerable<Keep> GetUserKeeps(string id)
+    {
+      return _db.Query<Keep>($"SELECT * FROM Keeps WHERE userId = @id", new { id });
+    }
+
     public Keep GetById(int id)
     {
       return _db.QueryFirstOrDefault<Keep>($"SELECT * FROM Keeps WHERE id = @id", new { id });
@@ -32,7 +37,12 @@ namespace keepr.Controllers
         return _db.QueryFirstOrDefault<Keep>($@"
         UPDATE Keeps SET
           Name = @Name,
-          Size = @Size
+          Description = @Description
+          UserId = @UserId
+          Img = @Img
+          Views = @Views
+          Shares = @Shares
+          Keeps = @Keeps
         WHERE Id = @Id;
         SELECT * FROM Keeps WHERE id = @Id;
         ", newkeep);

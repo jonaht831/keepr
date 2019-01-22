@@ -28,10 +28,12 @@ namespace keepr.Controllers
     }
 
     // GET api/values/5
+    [Authorize]
     [HttpGet("{id}")]
-    public ActionResult<VaultKeep> Get(int id)
+    public ActionResult<IEnumerable<Keep>> Get(int id)
     {
-      VaultKeep result = _vaultkeepsRepo.GetById(id);
+
+      var result = _vaultkeepsRepo.GetVaultKeeps(id, HttpContext.User.Identity.Name);
       if (result != null)
       {
         return Ok(result);

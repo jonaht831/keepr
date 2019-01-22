@@ -18,9 +18,12 @@ namespace keepr.Controllers
       return _db.Query<VaultKeep>("SELECT * FROM VaultKeeps");
     }
 
-    public VaultKeep GetById(int id)
+    public IEnumerable<Keep> GetVaultKeeps(int vaultId, string userId)
     {
-      return _db.QueryFirstOrDefault<VaultKeep>($"SELECT * FROM VaultKeeps WHERE id = @id", new { id });
+      return _db.Query<Keep>($@"
+      SELECT * FROM vaultkeeps vk
+      INNER JOIN keeps k ON k.id = vk.keepId
+      WHERE(vaultId = @vaultId AND vk.userId = @userId)", new { vaultId, userId });
     }
 
     public VaultKeep EditVaultKeep(int id, VaultKeep newvaultkeep)
