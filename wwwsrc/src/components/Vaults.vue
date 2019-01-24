@@ -1,10 +1,10 @@
 <template>
-  <div class="vault px-1">
+  <div class="vaults px-1 col-12 col-md-3 d-flex justify-content-center">
     <div class="card" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">{{vaultData.name}}</h5>
         <p class="card-text">{{vaultData.description}}</p>
-        <a href="#" class="btn btn-primary">View</a>
+        <router-link class="btn btn-info" :to="{name: 'vault', params: {vaultId: vaultData.id}}">View</router-link>
       </div>
     </div>
   </div>
@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    name: 'Vault',
+    name: 'Vaults',
     props: ['vaultData'],
     data() {
       return {
@@ -23,7 +23,9 @@
       this.$store.dispatch('getVaults')
     },
     computed: {},
-    methods: {}
+    methods: {
+
+    }
   }
 
 </script>

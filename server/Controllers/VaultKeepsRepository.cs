@@ -13,17 +13,17 @@ namespace keepr.Controllers
     {
       _db = db;
     }
-    public IEnumerable<VaultKeep> GetAll()
-    {
-      return _db.Query<VaultKeep>("SELECT * FROM VaultKeeps");
-    }
+    // public IEnumerable<VaultKeep> GetAll()
+    // {
+    //   return _db.Query<VaultKeep>("SELECT * FROM VaultKeeps");
+    // }
 
     public IEnumerable<Keep> GetVaultKeeps(int vaultId, string userId)
     {
       return _db.Query<Keep>($@"
       SELECT * FROM vaultkeeps vk
       INNER JOIN keeps k ON k.id = vk.keepId
-      WHERE(vaultId = @vaultId AND vk.userId = @userId)", new { vaultId, userId });
+      WHERE(vk.vaultId = @vaultId AND vk.userID = @userId)", new { vaultId, userId });
     }
 
     public VaultKeep EditVaultKeep(int id, VaultKeep newvaultkeep)

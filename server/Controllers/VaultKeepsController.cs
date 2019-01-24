@@ -22,10 +22,10 @@ namespace keepr.Controllers
 
     // GET api/values
     [HttpGet]
-    public ActionResult<IEnumerable<VaultKeep>> Get()
-    {
-      return Ok(_vaultkeepsRepo.GetAll());
-    }
+    // public ActionResult<IEnumerable<VaultKeep>> Get()
+    // {
+    //   return Ok(_vaultkeepsRepo.GetAll());
+    // }
 
     // GET api/values/5
     [Authorize]

@@ -20,19 +20,21 @@
             <a class="nav-link hover">Logout</a>
           </li>
           <li class="nav-item action">
-            <router-link class="nav-link" :to="{name: 'profile'}">My Profile</router-link>
+            <router-link class="nav-link" :to="{name: 'dashboard'}">Dash</router-link>
           </li>
         </ul>
       </div>
-      <button v-if="user.id" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+      <button v-if="user.id" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addVaultModal">
+        Add a Vault
+      </button>
+      <button v-if="user.id" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addKeepModal">
         Add a Keep
       </button>
     </nav>
     <router-view />
 
-
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="addKeepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -54,6 +56,27 @@
         </div>
       </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="addVaultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Let's add a Vault!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="addVault()">
+              <div><input type="text" placeholder="Name" v-model="newVault.name"></div>
+              <div><input type="text" placeholder="Description" v-model="newVault.description"></div>
+              <button type="submit" class="btn btn-primary">Add Vault</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -65,6 +88,10 @@
           name: "",
           description: "",
           img: "",
+        },
+        newVault: {
+          name: "",
+          description: ""
         }
       }
     },
@@ -79,6 +106,9 @@
       },
       addKeep() {
         this.$store.dispatch('addKeep', this.newKeep);
+      },
+      addVault() {
+        this.$store.dispatch('addVault', this.newVault);
       }
     }
   }
