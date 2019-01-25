@@ -1,31 +1,30 @@
 <template>
-  <div class="Keep col-12 col-md-3 d-flex justify-content-center">
-    <div class="card" style="width: 18rem;">
-      <img :src="keepData.img" class="card-img-top" alt="..." max-height="30rem" max-width="30rem">
-      <div class="card-body">
-        <h5 class="card-title">{{keepData.name}}</h5>
-        <p class="card-text">{{keepData.description}}</p>
-        <div class="col d-flex justify-content-around">
-          <p class="card-text"><i class="far fa-eye"></i>{{keepData.views}}</p>
-          <p class="card-text" v-if="keepData.isPrivate == 0">Private</p>
-          <p class="card-text"><i class="fas fa-lock"></i>{{keepData.keeps}}</p>
-        </div>
-        <!-- Button trigger modal -->
-        <button type="button" class="mb-1 btn btn-info" @click="incrementViewed(keepData)" data-toggle="modal"
-          data-target="#exampleModalCenter" :data-target="'#kMod' + keepData.id">
-          View
-        </button>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Keep
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <p v-for="vault in vaults" class="dropdown-item hover" href="#" @click="saveKeepToVault(vault.id)">{{vault.name}}</p>
-          </div>
-        </div>
-        <button class="mt-1 btn btn-primary" @click="deleteKeep(keepData.id)">Delete</button>
+  <!-- <div class="Keep col-12 col-md-3 d-flex justify-content-center"> -->
+  <div class="card" style="width: 18rem;">
+    <img :src="keepData.img" class="card-img-top" alt="..." max-height="30rem" max-width="30rem">
+    <div class="card-body">
+      <h5 class="card-title">{{keepData.name}}</h5>
+      <p class="card-text">{{keepData.description}}</p>
+      <div class="col d-flex justify-content-around">
+        <p class="card-text"><i class="far fa-eye"></i>{{keepData.views}}</p>
+        <p class="card-text" v-if="keepData.isPrivate == 0">Private</p>
+        <p class="card-text"><i class="fas fa-lock"></i>{{keepData.keeps}}</p>
       </div>
+      <!-- Button trigger modal -->
+      <button type="button" class="mb-1 btn btn-info" @click="incrementViewed(keepData)" data-toggle="modal"
+        data-target="#exampleModalCenter" :data-target="'#kMod' + keepData.id">
+        View
+      </button>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Keep
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <p v-for="vault in vaults" class="dropdown-item hover" href="#" @click="saveKeepToVault(vault.id)">{{vault.name}}</p>
+        </div>
+      </div>
+      <button class="mt-1 btn btn-primary" @click="deleteKeep(keepData.id)">Delete</button>
     </div>
     <!-- Modal -->
     <div class="modal fade" :id="'kMod'+keepData.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -53,6 +52,7 @@
         </div>
       </div>
     </div>
+    <!-- </div> -->
   </div>
 </template>
 

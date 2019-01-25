@@ -1,10 +1,8 @@
 <template>
   <div class="oneVault">
     <div class="container-fluid">
-      <div class="row">
-        <!-- <div class="col-12 mt-3 d-flex flex-row justify-content-center"> -->
+      <div class="card-columns">
         <VaultKeeps v-for="keep in vaultKeeps" :vaultKeepData="keep"></VaultKeeps>
-        <!-- </div> -->
       </div>
     </div>
 

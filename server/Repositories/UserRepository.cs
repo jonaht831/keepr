@@ -22,7 +22,13 @@ namespace keepr.Repositories
       int success = _db.Execute(@"
             INSERT INTO users (id, username, email, hash)
             VALUES (@id, @username, @email, @hash);
-            ", new { id });
+            ", new
+      {
+        id,
+        username = creds.Username,
+        email = creds.Email,
+        hash
+      });
 
       if (success != 1) { return null; }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <div class="card-columns">
       <!-- <div class="col-12 mt-3 d-flex flex-row justify-content-center"> -->
       <Keep v-for="keep in keeps" :keepData="keep" v-if="keep.isPrivate == 1"></Keep>
       <!-- </div> -->
