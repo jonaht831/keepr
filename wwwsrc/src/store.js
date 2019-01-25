@@ -105,6 +105,12 @@ export default new Vuex.Store({
           commit('setMyVaults', res.data)
         })
     },
+    deleteVault({ commit, dispatch }, vaultId) {
+      api.delete('vaults/' + vaultId)
+        .then(res => {
+          dispatch('getVaults')
+        })
+    },
     getVaultKeeps({ commit, dispatch }, vaultId) {
       api.get('vaultkeeps/' + vaultId)
         .then(res => {
@@ -115,12 +121,38 @@ export default new Vuex.Store({
       api.post('vaultkeeps/', payload)
         .then(res => {
           window.alert("You saved the Keep!")
+          //api.put to keepsController to increment keeps/saves
+          dispatch('incrementKeeps', payload.data)
+        })
+        .catch(e => {
+          console.error(e)
+          window.alert("you can't the keep to this vault more than once")
         })
     },
     deleteKeep({ commit, dispatch }, keepId) {
       api.delete('keeps/' + keepId)
         .then(res => {
-          commit('setPublicKeeps')
+          dispatch('getPublicKeeps')
+        })
+    },
+    removeKeep({ commit, dispatch }, payload) {
+      api.put('vaultkeeps/', payload)
+        .then(res => {
+          dispatch('getVaultKeeps', payload.vaultId)
+        })
+    },
+    incrementKeeps({ commit, dispatch }, keep) {
+      //api.put to keepsController to increment keeps/saves
+      keep.keeps++
+      api.put('keeps', keep)
+        .then(res => {
+          dispatch('getPublicKeeps')
+        })
+    },
+    incrementViewed({ commit, dispatch }, keep) {
+      keep.views++
+      api.put('keeps', keep)
+        .then(res => {
           dispatch('getPublicKeeps')
         })
     }

@@ -56,15 +56,15 @@ namespace keepr.Controllers
     }
 
     // PUT api/values/5
-    [HttpPut("{id}")]
-    public ActionResult<Keep> Put(int id, [FromBody] Keep value)
+    [HttpPut]
+    public ActionResult<string> Put([FromBody] Keep value)
     {
-      Keep result = _keepRepo.EditKeep(id, value);
-      if (result != null)
+      int result = _keepRepo.EditKeep(value);
+      if (result == 1)
       {
-        return Ok(result);
+        return Ok("Keep");
       }
-      return NotFound();
+      return BadRequest("FAIL");
     }
 
     // DELETE api/values/5

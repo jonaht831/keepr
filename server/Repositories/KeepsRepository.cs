@@ -29,28 +29,25 @@ namespace keepr.Controllers
       return _db.QueryFirstOrDefault<Keep>($"SELECT * FROM Keeps WHERE id = @id", new { id });
     }
 
-    public Keep EditKeep(int id, Keep newkeep)
+    public int EditKeep(Keep keep)
     {
       try
       {
-        newkeep.Id = id;
-        return _db.QueryFirstOrDefault<Keep>($@"
+        return _db.Execute($@"
         UPDATE Keeps SET
-          Name = @Name,
-          Description = @Description
-          UserId = @UserId
-          Img = @Img
-          Views = @Views
-          Shares = @Shares
-          Keeps = @Keeps
-        WHERE Id = @Id;
-        SELECT * FROM Keeps WHERE id = @Id;
-        ", newkeep);
+          name = @Name,
+          description = @Description,
+          img = @Img,
+          views = @Views,
+          shares = @Shares,
+          keeps = @Keeps
+          WHERE id = @Id;
+        ", keep);
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex);
-        return null;
+        return 0;
       }
     }
     public Keep AddKeep(Keep newkeep)

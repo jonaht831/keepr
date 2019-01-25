@@ -49,7 +49,7 @@
               <div><input type="text" placeholder="Name" v-model="newKeep.name"></div>
               <div><input type="text" placeholder="Description" v-model="newKeep.description"></div>
               <div><input type="text" placeholder="Image Url" v-model="newKeep.img"></div>
-              <div><input type="checkbox">Private</div>
+              <div><input type="checkbox" v-model="newKeep.isPrivate">Private</div>
               <button type="submit" class="btn btn-primary">Add Keep</button>
             </form>
           </div>
@@ -88,6 +88,7 @@
           name: "",
           description: "",
           img: "",
+          isPrivate: 0
         },
         newVault: {
           name: "",
@@ -105,6 +106,11 @@
         this.$store.dispatch('logout');
       },
       addKeep() {
+        if (this.newKeep.isPrivate) {
+          this.newKeep.isPrivate = 1
+        } else {
+          this.newKeep.isPrivate = 0
+        }
         this.$store.dispatch('addKeep', this.newKeep);
       },
       addVault() {

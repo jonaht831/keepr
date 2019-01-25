@@ -26,31 +26,34 @@ namespace keepr.Controllers
       WHERE(vk.vaultId = @vaultId AND vk.userID = @userId)", new { vaultId, userId });
     }
 
-    public VaultKeep EditVaultKeep(int id, VaultKeep newvaultkeep)
+    public int EditVaultKeep(VaultKeep vk)
     {
       try
       {
-        newvaultkeep.Id = id;
-        return _db.QueryFirstOrDefault<VaultKeep>($@"
-        UPDATE VaultKeeps SET
-          Name = @Name,
-          Size = @Size
-        WHERE Id = @Id;
-        SELECT * FROM VaultKeeps WHERE id = @Id;
-        ", newvaultkeep);
+        return _db.Execute($@"
+        DELETE FROM vaultkeeps WHERE 
+        keepId = @KeepId AND 
+        vaultId = @vaultId", vk);
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex);
-        return null;
+        return 0;
       }
     }
     public bool AddVaultKeep(VaultKeep newvaultkeep)
     {
-      int success = _db.Execute(@"
+      VaultKeep vk = _db.QueryFirstOrDefault<VaultKeep>(@"
+      SELECT * FROM vaultkeeps
+      WHERE vaultId = @VaultId AND keepId = @KeepId;", newvaultkeep);
+      if (vk == null)
+      {
+        int success = _db.Execute(@"
       INSERT INTO vaultkeeps (VaultId, KeepId, UserId)
       Values (@VaultId, @KeepId, @UserId)", newvaultkeep);
-      return success != 0;
+        return success != 0;
+      }
+      return false;
     }
 
     public bool DeleteVaultKeep(int id)

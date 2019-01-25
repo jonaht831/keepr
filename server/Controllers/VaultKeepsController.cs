@@ -44,18 +44,25 @@ namespace keepr.Controllers
     // POST api/values
     [HttpPost]
     [Authorize]
-    public ActionResult<VaultKeep> Post([FromBody] VaultKeep newvaultkeep)
+    public ActionResult<string> Post([FromBody] VaultKeep newvaultkeep)
     {
       newvaultkeep.UserId = HttpContext.User.Identity.Name;
-      return Ok(_vaultkeepsRepo.AddVaultKeep(newvaultkeep));
+      bool result = _vaultkeepsRepo.AddVaultKeep(newvaultkeep);
+      if (result)
+      {
+        return Ok("successfully added!");
+      }
+      return BadRequest("already in vault or error");
     }
 
     // PUT api/values/5
-    [HttpPut("{id}")]
-    public ActionResult<VaultKeep> Put(int id, [FromBody] VaultKeep value)
+    [Authorize]
+    [HttpPut]
+    public ActionResult<VaultKeep> Put([FromBody] VaultKeep value)
     {
-      VaultKeep result = _vaultkeepsRepo.EditVaultKeep(id, value);
-      if (result != null)
+      value.UserId = HttpContext.User.Identity.Name;
+      int result = _vaultkeepsRepo.EditVaultKeep(value);
+      if (result == 1)
       {
         return Ok(result);
       }
@@ -68,7 +75,7 @@ namespace keepr.Controllers
     {
       if (_vaultkeepsRepo.DeleteVaultKeep(id))
       {
-        return Ok("Successfully Deleted VaultKeep");
+        return Ok("Successfully Removed Keep!");
       }
       return NotFound();
     }

@@ -4,7 +4,10 @@
       <div class="card-body">
         <h5 class="card-title">{{vaultData.name}}</h5>
         <p class="card-text">{{vaultData.description}}</p>
-        <router-link class="btn btn-info" :to="{name: 'vault', params: {vaultId: vaultData.id}}">View</router-link>
+        <router-link class="btn btn-primary" :to="{name: 'vault', params: {vaultId: vaultData.id}}">View</router-link>
+        <div>
+          <button class="mt-1 btn btn-danger" @click="deleteVault(vaultData.id)">Delete</button>
+        </div>
       </div>
     </div>
   </div>
@@ -24,7 +27,9 @@
     },
     computed: {},
     methods: {
-
+      deleteVault(vaultId) {
+        this.$store.dispatch('deleteVault', this.vaultData.id)
+      }
     }
   }
 
