@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <!-- <div class="col-12 mt-3 d-flex flex-row justify-content-center"> -->
-      <Keep v-for="keep in keeps" :keepData="keep"></Keep>
+      <Keep v-for="keep in keeps" :keepData="keep" v-if="keep.isPrivate == 1"></Keep>
       <!-- </div> -->
     </div>
   </div>
@@ -29,9 +29,9 @@
 
     mounted() {
       //blocks users not logged in
-      if (!this.$store.state.user.id) {
-        this.$router.push({ name: "login" });
-      }
+      // if (!this.$store.state.user.id) {
+      //   this.$router.push({ name: "login" });
+      // }
       this.$store.dispatch('getPublicKeeps');
     }
   };

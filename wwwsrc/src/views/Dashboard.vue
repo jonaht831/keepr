@@ -18,6 +18,11 @@
 
       }
     },
+    mounted() {
+      if (!this.$store.state.user.id) {
+        this.$router.push({ name: "login" });
+      }
+    },
     computed: {
       vaults() {
         return this.$store.state.vaults || []

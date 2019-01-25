@@ -13,10 +13,10 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <li v-if="!user.id" class="nav-item action">
+          <li class="nav-item action">
             <router-link class="nav-link" :to="{name: 'login'}">Login/Register</router-link>
           </li>
-          <li v-else class="nav-item action" @click="logout">
+          <li v-if="user.id" class="nav-item action" @click="logout">
             <a class="nav-link hover">Logout</a>
           </li>
           <li class="nav-item action">
@@ -49,7 +49,7 @@
               <div><input type="text" placeholder="Name" v-model="newKeep.name"></div>
               <div><input type="text" placeholder="Description" v-model="newKeep.description"></div>
               <div><input type="text" placeholder="Image Url" v-model="newKeep.img"></div>
-              <div><input type="checkbox" v-model="newKeep.isPrivate">Private</div>
+              <div><input type="checkbox" v-model="newKeep.isPrivate">Public</div>
               <button type="submit" class="btn btn-primary">Add Keep</button>
             </form>
           </div>

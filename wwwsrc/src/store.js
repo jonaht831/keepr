@@ -126,7 +126,7 @@ export default new Vuex.Store({
         })
         .catch(e => {
           console.error(e)
-          window.alert("you can't the keep to this vault more than once")
+          window.alert("Sorry, you cant Keep this more than once..")
         })
     },
     deleteKeep({ commit, dispatch }, keepId) {
